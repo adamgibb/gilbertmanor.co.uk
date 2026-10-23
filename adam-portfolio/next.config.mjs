@@ -1,10 +1,13 @@
 /** @type {import('next').NextConfig} */
-const isProd = process.env.NODE_ENV === 'production';
+const isGitHubPages = process.env.GITHUB_PAGES === "true";
+const repositoryName = process.env.GITHUB_REPOSITORY?.split("/")[1] || "gilbertmanor.co.uk";
+const basePath = isGitHubPages ? `/${repositoryName}` : "";
 
 const nextConfig = {
-  basePath: isProd ? '/gilbertmanor.co.uk' : '',
-  assetPrefix: isProd ? '/gilbertmanor.co.uk/' : '',
-  output: 'export',
+  output: "export",
+  basePath,
+  assetPrefix: basePath ? `${basePath}/` : undefined,
+  outputFileTracingRoot: process.cwd(),
 };
 
 export default nextConfig;
